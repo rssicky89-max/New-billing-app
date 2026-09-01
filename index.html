@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Spicy Station Fast Food
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ================================================== -->
+    <!-- 🌶️ WELCOME SCREEN -->
+    <!-- ================================================== -->
+
+    <section
+        id="welcome-screen"
+        class="screen welcome-screen"
+    >
+
+        <div class="welcome-card">
+
+            <div class="logo-circle">
+                🌶️
+            </div>
+
+            <h1>
+                Spicy Station
+            </h1>
+
+            <p>
+                Fast Food Billing System
+            </p>
+
+            <p class="tagline">
+                Fresh • Tasty • 100% Halal
+            </p>
+
+            <button
+                type="button"
+                onclick="startApp()"
+                class="primary-btn"
+            >
+                🚀 Start
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================== -->
+    <!-- 🏠 MAIN DASHBOARD -->
+    <!-- ================================================== -->
+
+    <section
+        id="dashboard-screen"
+        class="screen"
+        style="display:none;"
+    >
+
+        <header class="top-header">
+
+            <div>
+
+                <h1>
+                    🌶️ Spicy Station
+                </h1>
+
+                <p>
+                    Fast Food Dashboard
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <main class="dashboard-container">
+
+
+
+<!-- TODAY SALES -->
+
+<div
+    class="summary-card"
+    onclick="showSalesAnalytics()"
+    style="cursor:pointer;"
+>
+
+    <span>
+        💰 Today's Sales
+    </span>
+
+    <strong id="today-sales">
+        ₹0.00
+    </strong>
+
+</div>
+
+            <!-- DASHBOARD MENU -->
+
+            <div class="dashboard-grid">
+
+
+                <button
+                    type="button"
+                    onclick="newBill()"
+                    class="dashboard-btn"
+                >
+                    🧾
+                    <span>
+                        New Bill
+                    </span>
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="showAddItem()"
+                    class="dashboard-btn"
+                >
+                    ➕
+                    <span>
+                        Add Item
+                    </span>
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="showItemSales()"
+                    class="dashboard-btn"
+                >
+                    📊
+                    <span>
+                        Item Sales
+                    </span>
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="showSales()"
+                    class="dashboard-btn"
+                >
+                    💰
+                    <span>
+                        Sales
+                    </span>
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="showHistory()"
+                    class="dashboard-btn"
+                >
+                    📜
+                    <span>
+                        History
+                    </span>
+                </button>
+<!-- ✏️ EDIT SAVED BILL -->
+
+<button
+    type="button"
+    onclick="showScreen('edit-saved-bill-screen')"
+    class="dashboard-btn"
+>
+    ✏️
+    <span>
+        Edit Saved Bill
+    </span>
+</button>
+
+                <button
+                    type="button"
+                    onclick="showStaffManagement()"
+                    class="dashboard-btn"
+                >
+                    👨‍🍳
+                    <span>
+                        Staff
+                    </span>
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="showInvestment()"
+                    class="dashboard-btn"
+                >
+                    💸
+                    <span>
+                        Investment
+                    </span>
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="showBusinessReport()"
+                    class="dashboard-btn"
+                >
+                    📈
+                    <span>
+                        Business Report
+                    </span>
+                </button>
+<button
+    type="button"
+    onclick="clearAllData()"
+>
+    🗑️ Clear All Data
+</button>
+<button
+    type="button"
+    onclick="showSettings()"
+>
+    ⚙️ Settings
+</button>
+            </div>
+
+
+        </main>
+
+    </section>
+
+
+
+    </section>
+<!-- ================================================== -->
+<!-- 🧾 BILLING SCREEN -->
+<!-- ================================================== -->
+
+<section
+    id="billing-screen"
+    class="screen"
+    style="display:none;"
+>
+
+    <header class="page-header">
+
+        <button
+            type="button"
+            onclick="backHome()"
+        >
+            ←
+        </button>
+
+        <h2>
+            🧾 New Bill
+        </h2>
+
+        <button
+            type="button"
+            class="quick-add-item-button"
+            onclick="showAddItem()"
+        >
+            ➕ Quick Add
+        </button>
+
+        <button
+            type="button"
+            class="floating-order-button"
+            onclick="openBasket()"
+        >
+            🛍️
+            <span class="my-order-text">
+                My Order
+            </span>
+
+            <span id="basket-count">
+                0
+            </span>
+        </button>
+
+    </header>
+
+
+    <!-- ==================================================
+         📂 MENU CATEGORIES
+         ================================================== -->
+
+    <div
+        id="menu-category-bar"
+        class="category-bar"
+    ></div>
+
+
+    <!-- ==================================================
+         🍔 MENU ITEMS
+         ================================================== -->
+
+    <div
+        id="menu-list"
+        class="menu-grid"
+    ></div>
+
+
+    <!-- ==================================================
+         🧾 CURRENT BILL
+         ================================================== -->
+
+    <div class="bill-box">
+
+        <h3>
+            🛒 Current Bill
+        </h3>
+
+        <div
+            id="bill-items"
+        ></div>
+
+
+        <div class="bill-total-row">
+
+            <strong>
+                Total
+            </strong>
+
+            <strong id="bill-total">
+                ₹0.00
+            </strong>
+
+        </div>
+
+
+        <button
+            type="button"
+            onclick="openPayment()"
+            class="primary-btn"
+        >
+            💳 Proceed to Payment
+        </button>
+
+    </div>
+
+</section>
+<!-- ============================================================
+     ⚙️ SETTINGS SCREEN
+     ============================================================ -->
+
+<section
+    id="settings-screen"
+    class="screen"
+    style="display:none;"
+>
+
+    <header class="page-header">
+
+        <button
+            type="button"
+            onclick="backHome()"
+        >
+            ←
+        </button>
+
+        <h2>
+            ⚙️ Settings
+        </h2>
+
+        <div></div>
+
+    </header>
+
+
+    <main class="settings-container">
+
+
+        <!-- ====================================================
+             ☁️ CLOUD BACKUP
+             ==================================================== -->
+
+        <div class="settings-card">
+
+            <div class="settings-icon">
+                ☁️
+            </div>
+
+            <div class="settings-info">
+
+                <h3>
+                    Cloud Backup
+                </h3>
+
+                <p>
+                    Business ka data Firebase Cloud me safely backup karo.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- BACKUP NOW -->
+
+        <button
+            type="button"
+            class="settings-cloud-btn"
+            onclick="backupBusinessData()"
+        >
+            ☁️ Backup Now
+        </button>
+
+
+        <!-- RESTORE -->
+
+        <button
+            type="button"
+            class="settings-cloud-btn"
+            onclick="restoreBusinessData()"
+        >
+            🔄 Restore Backup
+        </button>
+
+
+        <!-- AUTO BACKUP -->
+
+        <div class="settings-card">
+
+            <div class="settings-icon">
+                🔁
+            </div>
+
+            <div class="settings-info">
+
+                <h3>
+                    Auto Backup
+                </h3>
+
+                <p id="auto-backup-status">
+                    Automatic cloud backup OFF
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                onclick="toggleAutoBackup()"
+                id="auto-backup-button"
+            >
+                OFF
+            </button>
+
+        </div>
+
+
+        <!-- CLOUD STATUS -->
+
+        <div class="settings-danger-zone">
+
+            <h3>
+                🟢 Cloud Sync Status
+            </h3>
+
+            <p id="cloud-sync-status">
+                Checking cloud connection...
+            </p>
+
+            <p id="last-backup-time">
+                📅 Last Backup: Not available
+            </p>
+
+        </div>
+
+
+        <!-- ====================================================
+             👤 CHANGE USER ID
+             ==================================================== -->
+
+        <div class="settings-card">
+
+            <div class="settings-icon">
+                👤
+            </div>
+
+            <div class="settings-info">
+
+                <h3>
+                    Change User ID
+                </h3>
+
+                <p>
+                    Admin login User ID change karo.
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                onclick="changeAdminUserId()"
+            >
+                Change
+            </button>
+
+        </div>
+
+
+        <!-- ====================================================
+             🔑 CHANGE PASSWORD
+             ==================================================== -->
+
+        <div class="settings-card">
+
+            <div class="settings-icon">
+                🔑
+            </div>
+
+            <div class="settings-info">
+
+                <h3>
+                    Change Password
+                </h3>
+
+                <p>
+                    Admin password update karo.
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                onclick="changeAdminPassword()"
+            >
+                Change
+            </button>
+
+        </div>
+<!-- ====================================================
+     🏪 BUSINESS INFORMATION
+     ==================================================== -->
+
+<div class="settings-card">
+
+    <div class="settings-icon">
+        🏪
+    </div>
+
+    <div class="settings-info">
+
+        <h3>
+            Business Information
+        </h3>
+
+        <p>
+            Business name aur details manage karo.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="business-info-form">
+
+    <label for="business-name">
+        🏪 Business Name
+    </label>
+
+    <input
+        type="text"
+        id="business-name"
+        placeholder="Enter Business Name"
+    >
+
+
+    <label for="business-phone">
+        📞 Phone Number
+    </label>
+
+    <input
+        type="tel"
+        id="business-phone"
+        placeholder="Enter Phone Number"
+    >
+
+
+    <label for="business-address">
+        📍 Address
+    </label>
+
+    <textarea
+        id="business-address"
+        placeholder="Enter Business Address"
+        rows="3"
+    ></textarea>
+
+
+    <button
+        type="button"
+        class="business-save-button"
+        onclick="saveBusinessInformation()"
+    >
+        💾 Save Business Details
+    </button>
+
+</div>
+<!-- ====================================================
+     🖨️ RECEIPT PRINTER
+     ==================================================== -->
+
+<div class="settings-card">
+
+    <div class="settings-icon">
+        🖨️
+    </div>
+
+    <div class="settings-info">
+
+        <h3>
+            Receipt Printer
+        </h3>
+
+        <p id="printer-status">
+            🔴 Printer Not Connected
+        </p>
+
+    </div>
+
+</div>
+
+<div class="printer-paper-size">
+
+    <label for="printer-paper-width">
+        📄 Paper Size
+    </label>
+
+    <select
+        id="printer-paper-width"
+        onchange="savePrinterPaperSize()"
+    >
+
+        <option value="58">
+            58mm
+        </option>
+
+        <option value="80">
+            80mm
+        </option>
+
+    </select>
+
+</div>
+<div class="printer-actions">
+
+    <button
+        type="button"
+        class="printer-connect-btn"
+        onclick="connectReceiptPrinter()"
+    >
+        🔗 Connect Printer
+    </button>
+
+
+    <button
+        type="button"
+        class="printer-test-btn"
+        onclick="testReceiptPrinter()"
+    >
+        🧾 Test Print
+    </button>
+
+</div>
+
+        <!-- ====================================================
+             🔐 SECURITY
+             ==================================================== -->
+
+        <div class="settings-danger-zone">
+
+            <h3>
+                🔐 Security
+            </h3>
+
+            <p>
+                Sensitive actions password protected hain.
+            </p>
+
+        </div>
+
+
+    </main>
+
+</section>
+    <!-- ================================================== -->
+    <!-- 🛒 BASKET PANEL -->
+    <!-- ================================================== -->
+
+    <div
+        id="basket-panel"
+        class="modal"
+        style="display:none;"
+    >
+
+        <div class="modal-card">
+
+            <button
+                type="button"
+                onclick="closeBasket()"
+                class="close-btn"
+            >
+                ✕
+            </button>
+
+            <h2>
+                🛒 Basket
+            </h2>
+
+            <div
+                id="basket-items"
+            ></div>
+
+            <h3>
+                Total:
+                <span id="basket-total">
+                    ₹0.00
+                </span>
+            </h3>
+
+            <button
+                type="button"
+                onclick="openPayment()"
+                class="primary-btn"
+            >
+                ORDER NOW
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================================== -->
+    <!-- 💳 PAYMENT PANEL -->
+    <!-- ================================================== -->
+
+    <div
+        id="payment-panel"
+        class="modal"
+        style="display:none;"
+    >
+
+        <div class="modal-card">
+
+            <button
+                type="button"
+                onclick="closePayment()"
+                class="close-btn"
+            >
+                ✕
+            </button>
+
+            <h2>
+                💳 Payment
+            </h2>
+
+
+            <button
+                type="button"
+                onclick="selectPayment('Cash')"
+                class="payment-option"
+            >
+                💵 Cash
+            </button>
+
+
+            <button
+                type="button"
+                onclick="selectPayment('UPI')"
+                class="payment-option"
+            >
+                📱 UPI
+            </button>
+
+
+            <button
+                type="button"
+                onclick="saveBill(); closePayment();"
+                class="primary-btn"
+            >
+                ✅ Complete Bill
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================================== -->
+    <!-- ➕ ADD ITEM SCREEN -->
+    <!-- ================================================== -->
+
+<section
+    id="add-item-screen"
+    class="screen"
+    style="display:none;"
+>
+
+    <header class="page-header">
+
+        <button
+            type="button"
+            onclick="backHome()"
+        >
+            ←
+        </button>
+
+        <h2>
+            ➕ Add Item
+        </h2>
+
+        <div></div>
+
+    </header>
+
+
+    <main class="add-item-container">
+
+        <div class="add-item-card">
+
+            <h3>🍔 New Menu Item</h3>
+
+
+            <label for="new-item-name">
+                Item Name
+            </label>
+
+            <input
+                type="text"
+                id="new-item-name"
+                placeholder="Example: Chicken Burger"
+            >
+
+
+            <label for="new-item-price">
+                Price
+            </label>
+
+            <input
+                type="number"
+                id="new-item-price"
+                placeholder="Example: 120"
+                min="0"
+            >
+
+
+            <label for="new-item-category">
+                Category
+            </label>
+
+            <select id="new-item-category">
+
+                <option value="Rice">
+                    Rice
+                </option>
+
+                <option value="Chicken">
+                    Chicken
+                </option>
+
+                <option value="Biryani">
+                    Biryani
+                </option>
+
+                <option value="Veg">
+                    Veg
+                </option>
+
+                <option value="Noodles">
+                    Noodles
+                </option>
+
+                <option value="Egg">
+                    Egg
+                </option>
+
+                <option value="Starters">
+                    Starters
+                </option>
+
+                <option value="Combos">
+                    Combos
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+<label for="new-item-photo">
+    🖼️ Item Photo
+</label>
+
+<input
+    type="file"
+    id="new-item-photo"
+    accept="image/*"
+>
+            <button
+                type="button"
+                class="primary-btn"
+                onclick="addNewItem()"
+            >
+            
+                ➕ Add Item
+            </button>
+<div
+    id="item-management-list"
+    class="item-management-list"
+></div>
+        </div>
+
+    </main>
+
+</section>
+
+
+    <!-- ================================================== -->
+    <!-- 📊 ITEM SALES SCREEN -->
+    <!-- ================================================== -->
+
+    <section
+        id="item-sales-screen"
+        class="screen"
+        style="display:none;"
+    ></section>
+
+
+
+    <!-- ================================================== -->
+    <!-- 💰 SALES SCREEN -->
+    <!-- ================================================== -->
+
+    <section
+        id="sales-screen"
+        class="screen"
+        style="display:none;"
+    ></section>
+
+
+
+    <!-- ================================================== -->
+    <!-- 📜 HISTORY SCREEN -->
+    <!-- ================================================== -->
+
+    <section
+        id="history-screen"
+        class="screen"
+        style="display:none;"
+    ></section>
+
+
+
+    <!-- ================================================== -->
+    <!-- 👨‍🍳 STAFF SCREEN -->
+    <!-- ================================================== -->
+
+    <section
+        id="staff-management-screen"
+        class="screen"
+        style="display:none;"
+    ></section>
+
+
+
+    <!-- ================================================== -->
+    <!-- 💸 INVESTMENT SCREEN -->
+    <!-- ================================================== -->
+
+    <section
+        id="investment-screen"
+        class="screen"
+        style="display:none;"
+    ></section>
+
+
+
+    <!-- ================================================== -->
+    <!-- 📈 BUSINESS REPORT -->
+    <!-- ================================================== -->
+
+    <section
+        id="business-report-screen"
+        class="screen"
+        style="display:none;"
+    ></section>
+
+
+
+    <!-- ================================================== -->
+    <!-- JAVASCRIPT -->
+    <!-- ================================================== -->
+
+    <script src="main.js"></script>
+<!-- ============================================================
+     🔐 SPICY STATION CUSTOM SECURITY MODAL
+     ============================================================ -->
+
+<div
+    id="security-modal"
+    class="security-modal"
+    style="display:none;"
+>
+
+    <div class="security-backdrop"></div>
+
+    <div class="security-box">
+
+        <div class="security-icon">
+            🔐
+        </div>
+
+        <h2 id="security-title">
+            Security Check
+        </h2>
+
+        <p id="security-message">
+            Please verify your credentials.
+        </p>
+
+
+        <div
+            id="security-form"
+            class="security-form"
+        >
+
+            <div class="security-input">
+
+                <span>👤</span>
+
+                <input
+                    type="text"
+                    id="security-user-id"
+                    placeholder="User ID"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <div class="security-input">
+
+                <span>🔑</span>
+
+                <input
+                    type="password"
+                    id="security-password"
+                    placeholder="Password"
+                    autocomplete="off"
+                >
+
+                <button
+                    type="button"
+                    onclick="toggleSecurityPassword()"
+                >
+                    👁️
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="security-actions"
+            class="security-actions"
+        >
+
+            <button
+                type="button"
+                class="security-cancel"
+                onclick="closeSecurityModal()"
+            >
+                Cancel
+            </button>
+
+            <button
+                type="button"
+                class="security-confirm"
+                onclick="submitSecurityModal()"
+            >
+                Continue
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ============================================================
+     🔥 FIREBASE + CLOUD BACKUP SETUP
+     ============================================================ -->
+
+<script type="module">
+
+    import { initializeApp }
+        from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+    import {
+        getFirestore,
+        doc,
+        setDoc,
+        getDoc,
+        serverTimestamp
+    }
+    from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+    import {
+        getAuth,
+        signInWithEmailAndPassword,
+        signOut
+    }
+    from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    // ========================================================
+    // 🔥 FIREBASE CONFIG
+    // ========================================================
+
+    const firebaseConfig = {
+
+        apiKey:
+            "AIzaSyA6_-iiWLm2TrbhSdbFZ_Nk1LWYwuClmVQ",
+
+        authDomain:
+            "spicy-station-95095.firebaseapp.com",
+
+        projectId:
+            "spicy-station-95095",
+
+        storageBucket:
+            "spicy-station-95095.firebasestorage.app",
+
+        messagingSenderId:
+            "721613560867",
+
+        appId:
+            "1:721613560867:web:ededf0da38a036271c2596",
+
+        measurementId:
+            "G-4PR4VLDMTY"
+    };
+
+
+    // ========================================================
+    // 🚀 INITIALIZE FIREBASE
+    // ========================================================
+
+    const app =
+        initializeApp(firebaseConfig);
+
+
+    const db =
+        getFirestore(app);
+
+
+    const auth =
+        getAuth(app);
+
+
+    // ========================================================
+    // 🌍 MAKE AVAILABLE TO main.js
+    // ========================================================
+
+    window.firebaseApp =
+        app;
+
+    window.firebaseDB =
+        db;
+
+    window.firebaseAuth =
+        auth;
+
+    window.firebaseDoc =
+        doc;
+
+    window.firebaseSetDoc =
+        setDoc;
+
+    window.firebaseGetDoc =
+        getDoc;
+
+    window.firebaseServerTimestamp =
+        serverTimestamp;
+
+    window.firebaseLogin =
+        signInWithEmailAndPassword;
+
+    window.firebaseLogout =
+        signOut;
+
+</script>
+
+<!-- ============================================================
+     ✏️ EDIT SAVED BILL
+     ============================================================ -->
+
+<section
+    id="edit-saved-bill-screen"
+    class="screen"
+    style="display:none;"
+>
+
+    <div class="edit-bill-container">
+
+        <h2>✏️ Edit Saved Bill</h2>
+
+        <!-- 🔐 LOGIN -->
+        <div id="edit-bill-login">
+
+            <input
+                type="text"
+                id="edit-bill-user-id"
+                placeholder="👤 User ID"
+                autocomplete="off"
+            >
+
+            <input
+                type="password"
+                id="edit-bill-password"
+                placeholder="🔑 Password"
+                autocomplete="off"
+            >
+
+            <button
+                type="button"
+                onclick="loginForBillEdit()"
+            >
+                🔐 Login
+            </button>
+
+        </div>
+
+
+        <!-- 🧾 BILL ID -->
+        <div
+            id="edit-bill-search"
+            style="display:none;"
+        >
+
+            <input
+                type="number"
+                id="edit-bill-id"
+                placeholder="🧾 Enter Bill ID"
+            >
+
+            <button
+                type="button"
+                onclick="findBillForEdit()"
+            >
+                🔍 Find Bill
+            </button>
+
+        </div>
+
+
+        <!-- 📋 BILL EDIT AREA -->
+        <div
+            id="edit-bill-area"
+            style="display:none;"
+        >
+
+            <div id="edit-bill-items"></div>
+
+            <hr>
+
+            <div>
+                <strong>Old Total:</strong>
+                ₹<span id="edit-bill-old-total">0</span>
+            </div>
+
+            <div>
+                <strong>New Total:</strong>
+                ₹<span id="edit-bill-new-total">0</span>
+            </div>
+
+
+            <textarea
+                id="edit-bill-reason"
+                placeholder="📝 Reason for editing..."
+                rows="3"
+            ></textarea>
+
+
+            <button
+                type="button"
+                onclick="saveEditedBill()"
+            >
+                💾 Save Changes
+            </button>
+
+        </div>
+
+
+        <button
+            type="button"
+            onclick="showScreen('main-app')"
+        >
+            ← Back
+        </button>
+
+    </div>
+
+</section>
+<!-- ============================================================
+     📊 SALES ANALYTICS SCREEN
+     ============================================================ -->
+
+<section
+    id="sales-analytics-screen"
+    class="screen"
+    style="display:none;"
+>
+
+    <div class="sales-analytics-container">
+
+        <h2>📊 Sales Analytics</h2>
+
+
+        <!-- ====================================================
+             📈 LIVE SALES GRAPH
+             ==================================================== -->
+
+        <div class="sales-chart-card">
+
+            <div class="sales-chart-header">
+
+                <strong>
+                    📈 Live Sales Trend
+                </strong>
+
+                <span id="analytics-chart-status">
+                    LIVE
+                </span>
+
+            </div>
+
+
+           
+          <div class="sales-chart">
+
+    <!-- 📊 AUTO SALES SCALE -->
+
+    <div class="sales-y-axis">
+
+        <span id="sales-scale-1">₹1,000</span>
+        <span id="sales-scale-2">₹2,000</span>
+        <span id="sales-scale-3">₹3,000</span>
+        <span id="sales-scale-4">₹4,000</span>
+        <span id="sales-scale-5">₹5,000</span>
+
+    </div>
+
+
+    <!-- 〰 YESTERDAY LINE -->
+
+    <svg
+        class="yesterday-chart-line"
+        viewBox="0 0 1000 300"
+        preserveAspectRatio="none"
+    >
+
+        <path
+            id="yesterday-line"
+            d="M0,210 C100,190 150,215 250,200 S400,180 500,200 S650,215 750,190 S900,180 1000,200"
+        />
+
+    </svg>
+
+
+    <!-- 📈 TODAY LIVE LINE -->
+
+    <svg
+        class="today-chart-line"
+        viewBox="0 0 1000 300"
+        preserveAspectRatio="none"
+    >
+
+        <path
+            id="today-line"
+            d="M0,250 C100,230 150,240 250,210 S400,220 500,170 S650,185 750,130 S900,145 960,100"
+        />
+
+        <!-- ➡️ TODAY ARROW -->
+
+        <polygon
+            id="today-arrow"
+            points="960,100 940,92 940,108"
+        />
+
+    </svg>
+
+
+    <!-- ➡️ YESTERDAY ARROW -->
+
+    <div
+        id="yesterday-arrow"
+        class="chart-arrow yesterday-arrow"
+    >
+        >
+    </div>
+
+
+    <!-- 🟢 LIVE MOVING POINT -->
+
+    <div
+        id="live-chart-dot"
+        class="live-chart-dot"
+    ></div>
+
+
+    <!-- GRAPH BOTTOM -->
+
+    <div class="chart-bottom-line"></div>
+
+</div>
+
+
+<!-- GRAPH LEGEND -->
+
+<div class="chart-legend">
+
+    <span>
+        <b class="legend-today"></b>
+        Today
+    </span>
+
+    <span>
+        <b class="legend-yesterday"></b>
+        Yesterday
+    </span>
+
+</div>
+
+
+
+        <!-- ====================================================
+             💰 SALES DETAILS
+             ==================================================== -->
+
+        <div class="sales-detail-card">
+
+            <div class="sales-detail-row">
+
+                <span>
+                    💰 Today's Sales
+                </span>
+
+                <strong id="analytics-today-sales">
+                    ₹0.00
+                </strong>
+
+            </div>
+
+
+            <div class="sales-detail-row">
+
+                <span>
+                    📅 Yesterday's Sales
+                </span>
+
+                <strong id="analytics-yesterday-sales">
+                    ₹0.00
+                </strong>
+
+            </div>
+
+
+            <div class="sales-detail-row">
+
+                <span>
+                    🎯 Today's Target
+                </span>
+
+                <strong id="analytics-target">
+                    ₹0.00
+                </strong>
+
+            </div>
+
+
+            <div class="sales-detail-row">
+
+                <span>
+                    📊 Target Status
+                </span>
+
+                <strong id="analytics-target-status">
+                    ⏳ Waiting
+                </strong>
+
+            </div>
+
+
+            <div class="sales-detail-row">
+
+                <span>
+                    📈 Business Growth
+                </span>
+
+                <strong id="analytics-growth">
+                    ➡️ Stable 0.00%
+                </strong>
+
+            </div>
+
+
+            <div class="sales-detail-row">
+
+                <span>
+                    💵 Cash Sales
+                </span>
+
+                <strong id="analytics-cash">
+                    ₹0.00
+                </strong>
+
+            </div>
+
+
+            <div class="sales-detail-row">
+
+                <span>
+                    📱 UPI Sales
+                </span>
+
+                <strong id="analytics-upi">
+                    ₹0.00
+                </strong>
+
+            </div>
+
+
+            <div class="sales-detail-row">
+
+                <span>
+                    🧾 Today's Bills
+                </span>
+
+                <strong id="analytics-bills">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="sales-detail-row">
+
+                <span>
+                    💰 Remaining Target
+                </span>
+
+                <strong id="analytics-remaining-target">
+                    ₹0.00
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- ====================================================
+             ← BACK
+             ==================================================== -->
+
+        <button
+            type="button"
+            class="sales-analytics-back"
+            onclick="showScreen('main-app')"
+        >
+            ← Back to Dashboard
+        </button>
+
+    </div>
+
+</section>
+
+</body>
+
+</html>
